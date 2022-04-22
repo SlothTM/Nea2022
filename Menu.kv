@@ -1,0 +1,75 @@
+Menu_Manager:	
+	
+	Menu:
+	Login:
+	
+<Menu>:
+	name: "1"
+
+	BoxLayout:
+		orientation: "vertical"
+	
+		Label:
+			text: "Precaution of Precipitation"
+			font_size: "50dp"
+		Button:
+			text: "Login"
+			size_hint: .4, 1
+			pos_hint: { "center_x": .5}
+			on_release: 
+				app.root.current = "2"
+				root.manager.transition.direction = "left"
+		
+		Button:
+			text: "Register"
+			size_hint: .4, 1
+			pos_hint: { "center_x": .5}
+			on_release: 
+				app.root.current = "3"
+				root.manager.transition.direction = "left"
+		
+		Button:
+			text: "Forgot Password"
+			size_hint: .4, 1
+			pos_hint: { "center_x": .5}
+	
+		Button:
+			text: "Exit"
+			size_hint: .125, .5
+
+			
+<Login>:
+	name: "2"
+	
+	BoxLayout:
+		orientation: "vertical"
+		
+		Label:
+			text: "Login"
+			font_size: "50dp"
+		
+				
+		Label:
+			text: "Password"
+		
+		BoxLayout:
+	
+			Button:
+				text: "Back"
+				pos_hint: { "left": 0}
+				on_release: 
+					app.root.current = "1"
+					root.manager.transition.direction = "right"
+			Button:
+				text: "Enter"
+				pos_hint: { "left": .5}
+
+<Register>:
+	name:"3"
+	
+	BoxLayout:
+		orientation: "vertical"
+		
+		label: 
+			text: "Registration"
+			font_size: "50dp"
