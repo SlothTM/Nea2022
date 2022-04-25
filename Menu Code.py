@@ -1,4 +1,4 @@
-#imports from different modules
+#imports
 
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
@@ -8,13 +8,16 @@ from kivy.uix.screenmanager import ScreenManager , Screen
 from kivy.uix.textinput import TextInput
 
 
-class Menu(Screen):
+class Menu(Screen): #Menu screen
     pass
 
-class Login(Screen):
+class Login(Screen): #Login screen
     pass
 
-class Menu_Manager(ScreenManager):
+class Register(Screen): #Register screen
+    pass
+
+class Menu_Manager(ScreenManager): #manages each screeen allows for changing between the menu screens
     pass
 
 
@@ -26,4 +29,5 @@ class App(App): #main class for the menu
         return kv
 
 
-App().run()
+App().run() #run
+
