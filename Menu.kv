@@ -2,6 +2,7 @@ Menu_Manager:
 	
 	Menu:
 	Login:
+	Register:
 	
 <Menu>:
 	name: "1"
@@ -36,6 +37,8 @@ Menu_Manager:
 		Button:
 			text: "Exit"
 			size_hint: .125, .5
+			on_press : 
+				quit()
 
 			
 <Login>:
@@ -47,29 +50,62 @@ Menu_Manager:
 		Label:
 			text: "Login"
 			font_size: "50dp"
+			pos_hint: { "center_x": .5}			
 		
+		TextInput:
+			text: "Username"
+			multiline: False
+			size_hint: .4,.15
+			pos_hint: { "center_x": .5}
+			
 				
-		Label:
-			text: "Password"
+		TextInput:
+			text: "password"
+			multiline: False
+			size_hint: .4,.15
+			pos_hint: { "center_x": .5}
 		
 		BoxLayout:
-	
+		
+			orientation : "horizontal"
+			
 			Button:
 				text: "Back"
 				pos_hint: { "left": 0}
 				on_release: 
 					app.root.current = "1"
 					root.manager.transition.direction = "right"
+					
 			Button:
-				text: "Enter"
+				text: "Login"
 				pos_hint: { "left": .5}
-
+				
 <Register>:
-	name:"3"
+	name: "3"
 	
 	BoxLayout:
+	
 		orientation: "vertical"
 		
-		label: 
-			text: "Registration"
+		Label:
+			text: "Forgotten Password"
 			font_size: "50dp"
+			
+		BoxLayout:
+		
+			orientation: "horizontal"
+			
+			Button:
+				text: "Back"
+				pos_hint: {"left": 0}
+				on_release:
+					app.root.current = "1"
+					root.manager.transition.direction = "right"
+				
+			Button:
+				text: "Create"
+				pos_hint: { "left": .5}
+				on_release:
+					app.root.current = "2"
+					root.manager.transition.direction = "left"
+				
