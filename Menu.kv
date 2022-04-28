@@ -1,111 +1,240 @@
-Menu_Manager:	
-	
+Menu_Manager:
+
 	Menu:
 	Login:
 	Register:
+	Forgotten:
+	GameMenu:
+	Settings:
 	
 <Menu>:
-	name: "1"
+	name: "menu"
 
 	BoxLayout:
 		orientation: "vertical"
-	
+
 		Label:
-			text: "Precaution of Precipitation"
-			font_size: "50dp"
+			text: "Precaution"
+			font_size: "100dp"
 		Button:
 			text: "Login"
 			size_hint: .4, 1
 			pos_hint: { "center_x": .5}
+			font_size: "40dp"
 			on_release: 
-				app.root.current = "2"
+				app.root.current = "login"
 				root.manager.transition.direction = "left"
 		
 		Button:
 			text: "Register"
 			size_hint: .4, 1
 			pos_hint: { "center_x": .5}
+			font_size: "40dp"
 			on_release: 
-				app.root.current = "3"
+				app.root.current = "register"
 				root.manager.transition.direction = "left"
 		
 		Button:
 			text: "Forgot Password"
 			size_hint: .4, 1
 			pos_hint: { "center_x": .5}
+			font_size: "40dp"
+			on_release:
+				app.root.current = "forgotten"
+				root.manager.transition.direction = "left"
 	
 		Button:
 			text: "Exit"
-			size_hint: .125, .5
+			size_hint: .2, .6
+			font_size: "40dp"
 			on_press : 
 				quit()
 
 			
 <Login>:
-	name: "2"
+	name: "login"
 	
 	BoxLayout:
 		orientation: "vertical"
-		
+		spacing: '10dp'
+
 		Label:
 			text: "Login"
-			font_size: "50dp"
-			pos_hint: { "center_x": .5}			
-		
+			font_size: '100dp'
+			pos_hint: { "y": .5}
+
 		TextInput:
-			text: "Username"
+			hint_text: "Username"
 			multiline: False
-			size_hint: .4,.15
-			pos_hint: { "center_x": .5}
+			size_hint: .4,.1
+			pos_hint: { "center_x": .5}		
+			on_text_validate:
+				app.root.current = "GameMenu"
+				root.manager.transition.direction = "right"	
 			
-				
 		TextInput:
-			text: "password"
+			hint_text: "password"
 			multiline: False
-			size_hint: .4,.15
+			size_hint: .4,.1
 			pos_hint: { "center_x": .5}
-		
+
 		BoxLayout:
+			orientation: "horizontal"
+			size_hint: 1.25,.5
+			Label:
+				text: ''
 		
-			orientation : "horizontal"
-			
-			Button:
-				text: "Back"
-				pos_hint: { "left": 0}
-				on_release: 
-					app.root.current = "1"
-					root.manager.transition.direction = "right"
+		Button:
+			text: "Back"
+			pos_hint: { "left": 0}
+			size_hint: .2,.3
+			font_size: "40dp"
+			on_release: 
+				app.root.current = "menu"
+				root.manager.transition.direction = "right"
 					
-			Button:
-				text: "Login"
-				pos_hint: { "left": .5}
 				
 <Register>:
-	name: "3"
+	name: "register"
 	
 	BoxLayout:
-	
 		orientation: "vertical"
-		
+		spacing: '10dp'
+
 		Label:
-			text: "Forgotten Password"
-			font_size: "50dp"
-			
-		BoxLayout:
+			text: "Register"
+			font_size: '100dp'
+		TextInput:
+			hint_text: "Username"
+			multiline: False
+			size_hint: .4,.15
+			pos_hint: { "center_x": .5}
 		
+		TextInput:
+			hint_text: "DD/MM/YYYY"
+			multiline: False
+			size_hint: .4,.15
+			pos_hint: { "center_x": .5}
+
+		TextInput:
+			hint_text: "Password"
+			multiline: False
+			size_hint: .4,.15
+			pos_hint: { "center_x": .5}
+
+		Label:
+			size_hint: .2,.2
+			text:''
+
+		Button:
+			text: "Generate Transfer Code"
+			size_hint: .2,.5
+			pos_hint: {"center_x": 0.5 , "centre_y": 0.5}
+				
+
+		Label:
+			orientation: 'horizontal'
+			size_hint: 1.25,.5
+			text: ''
+
+		Button:
+			text: "Back"
+			pos_hint: {"left": 0}
+			size_hint:.2,.3
+			font_size: "40dp"
+			on_release:
+				app.root.current = "menu"
+				root.manager.transition.direction = "right"
+
+<Forgotten>:
+
+	name: "forgotten"
+		
+	BoxLayout:
+
+		orientation: 'vertical'
+		spacing: '10dp'
+
+		Label:
+			text:'Forgot Password'
+			font_size: "75dp"
+
+		TextInput:
+			hint_text: "Enter generated number"
+			multiline: False
+			size_hint: .6,.125
+			pos_hint: { "center_x": .5}
+		
+		TextInput:
+			hint_text: "Enter Account Username"
+			multiline: False
+			size_hint: .6,.125		
+			pos_hint: { "center_x": .5}
+		
+		TextInput:
+			hint_text: "Enter New Password"
+			multiline: False
+			size_hint: .6,.125	
+			pos_hint: { "center_x": .5}
+		
+		TextInput:
+			hint_text: "Enter new password again"
+			multiline: False
+			size_hint: .6,.125			
+			pos_hint: { "center_x": .5}
+
+		BoxLayout:
 			orientation: "horizontal"
-			
-			Button:
-				text: "Back"
-				pos_hint: {"left": 0}
-				on_release:
-					app.root.current = "1"
-					root.manager.transition.direction = "right"
-				
-			Button:
-				text: "Create"
-				pos_hint: { "left": .5}
-				on_release:
-					app.root.current = "2"
-					root.manager.transition.direction = "left"
-				
+			size_hint: 1.25,.5
+			Label:
+				text:	
+		Button:
+			text:'Back'
+			pos_hint: {"x": 0}
+			size_hint: .2,.3
+			font_size: "40dp"
+			on_release:
+				app.root.current = "menu"
+				root.manager.transition.direction: "left"
+
+<GameMenu>
+	name: "GameMenu"
+
+	BoxLayout:
+		orientation: "vertical"
+		spacing: '10dp'
+
+		Label:
+			text: "Precaution"
+			font_size: "150dp"
+
+		Button:
+			text: "Play!"
+			size_hint: .6, 1
+			pos_hint: { "center_x": .5}
+			font_size: "40dp"
+		
+		Button:
+			text: "Settings"
+			size_hint: .4, 1
+			pos_hint: {"center_x": .5}
+			font_size: "40dp"
+		
+		Button:
+			text: "Stats"
+			size_hint: .4, 1
+			pos_hint: { "center_x": .5}
+			font_size: "40dp"
+
+		Button:
+			text: "Secrets"
+			size_hint: .4, 1
+			pos_hint: { "center_x": .5}
+			font_size: "40dp"
+
+		Button:
+			text: "Exit"
+			size_hint: .2, .6
+			font_size: "40dp"
+			on_press : 
+				quit()
