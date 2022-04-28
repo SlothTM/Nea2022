@@ -6,6 +6,8 @@ Menu_Manager:
 	Forgotten:
 	GameMenu:
 	Setting:
+	Stats:
+	Secret:
 	
 <Menu>:
 	name: "menu"
@@ -70,7 +72,7 @@ Menu_Manager:
 			pos_hint: { "center_x": .5}		
 			on_text_validate:
 				app.root.current = "gameMenu"
-				root.manager.transition.direction = "right"	
+				root.manager.transition.direction = "left"	
 			
 		TextInput:
 			hint_text: "password"
@@ -195,7 +197,7 @@ Menu_Manager:
 			font_size: "40dp"
 			on_release:
 				app.root.current = "menu"
-				root.manager.transition.direction: "left"
+				root.manager.transition: "left" 
 <GameMenu>
 	name: "gameMenu"
 
@@ -218,22 +220,107 @@ Menu_Manager:
 			size_hint: .4, 1
 			pos_hint: {"center_x": .5}
 			font_size: "40dp"
+			on_release:
+				app.root.current = "setting"
+				root.manager.transition.direction = "left"
 		
 		Button:
 			text: "Stats"
 			size_hint: .4, 1
 			pos_hint: { "center_x": .5}
 			font_size: "40dp"
+			on_release:
+				app.root.current = "stats"
+				root.manager.transition.direction = "left"
 
 		Button:
 			text: "Secrets"
 			size_hint: .4, 1
 			pos_hint: { "center_x": .5}
 			font_size: "40dp"
+			on_release:
+				app.root.current = "secret"
+				root.manager.transition.direction = "left"
 
 		Button:
 			text: "Exit"
 			size_hint: .2, .6
 			font_size: "40dp"
 			on_press : 
-				quit()
+				app.root.current = "menu"
+				
+
+<Setting>
+	name: "setting"
+		
+	BoxLayout:
+		orientation: "vertical"
+		spacing: "10dp"
+		
+		Label:
+			text: "Settings"
+			font_size: "100dp"
+
+		Button:
+			text: "Sound"
+			size_hint: .4, 1
+			pos_hint: { "center_x": .5}
+			font_size: "40dp"
+
+		Button:
+			text: "Controls"
+			size_hint: .4, 1
+			pos_hint: { "center_x": .5}
+			font_size: "40dp"
+		
+		Button:
+			text: "Resolution"
+			size_hint: .4, 1
+			pos_hint: { "center_x": .5}
+			font_size: "40dp"
+
+		Button:
+			text: "Back"
+			size_hint: .2, .6
+			font_size: "40dp"
+			on_press : 
+				app.root.current = "gameMenu"
+
+
+<Stats>
+	name: "stats"
+
+	BoxLayout:
+		orientation: "vertical"
+		spacing: "10dp"
+		
+		Label:
+			text: "Stats"
+			font_size: "100dp"
+
+		Button:
+			text: "Back"
+			size_hint: .2, .6
+			font_size: "40dp"
+			on_press : 
+				app.root.current = "gameMenu"
+
+<Secret>
+	name: "secret"
+
+	BoxLayout:
+		orientation: "vertical"
+		spacing: "10dp"
+		
+		Label:
+			text: "Secrets"
+			font_size: "100dp"
+
+		Button:
+			text: "Back"
+			size_hint: .2, .6
+			font_size: "40dp"
+			on_press : 
+				app.root.current = "gameMenu"
+	
+	
