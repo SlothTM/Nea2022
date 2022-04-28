@@ -25,7 +25,7 @@ class Forgotten(Screen): #Forgotten password screen
 class GameMenu(Screen):
     pass
 
-class Settings(Screen):
+class Setting(Screen):
     pass
 
 class Menu_Manager(ScreenManager): #manages each screeen allows for changing between the menu screens
@@ -41,4 +41,3 @@ class App(App): #main class for the menu
 
 
 App().run() #run
-
