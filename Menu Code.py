@@ -28,6 +28,12 @@ class GameMenu(Screen):
 class Setting(Screen):
     pass
 
+class Stats(Screen):
+    pass
+
+class Secret(Screen):
+    pass
+
 class Menu_Manager(ScreenManager): #manages each screeen allows for changing between the menu screens
     pass
 
