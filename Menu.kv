@@ -5,7 +5,7 @@ Menu_Manager:
 	Register:
 	Forgotten:
 	GameMenu:
-	Settings:
+	Setting:
 	
 <Menu>:
 	name: "menu"
@@ -69,7 +69,7 @@ Menu_Manager:
 			size_hint: .4,.1
 			pos_hint: { "center_x": .5}		
 			on_text_validate:
-				app.root.current = "GameMenu"
+				app.root.current = "gameMenu"
 				root.manager.transition.direction = "right"	
 			
 		TextInput:
@@ -196,9 +196,8 @@ Menu_Manager:
 			on_release:
 				app.root.current = "menu"
 				root.manager.transition.direction: "left"
-
 <GameMenu>
-	name: "GameMenu"
+	name: "gameMenu"
 
 	BoxLayout:
 		orientation: "vertical"
