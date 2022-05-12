@@ -1,326 +1,67 @@
-Menu_Manager:
+#imports
 
-	Menu:
-	Login:
-	Register:
-	Forgotten:
-	GameMenu:
-	Setting:
-	Stats:
-	Secret:
-	
-<Menu>:
-	name: "menu"
+from kivy.app import App
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.widget import Widget
+from kivy.lang import Builder
+from kivy.uix.screenmanager import ScreenManager , Screen, NoTransition
+from kivy.uix.textinput import TextInput
+from kivy.core.audio import SoundLoader
+from random import random
+from kivy.core.window import Window
+from kivy.uix.image import Image
+from kivy.clock import Clock
+from random import random 
 
-	BoxLayout:
-		orientation: "vertical"
+#Changes background depending on .x (borderless/fullscreen)
+Window.borderless = True
 
-		Label:
-			text: "Precaution"
-			font_size: "100dp"
-		Button:
-			text: "Login"
-			size_hint: .4, 1
-			pos_hint: { "center_x": .5}
-			font_size: "40dp"
-			on_release: 
-				app.root.current = "login"
-				root.manager.transition.direction = "left"
-		
-		Button:
-			text: "Register"
-			size_hint: .4, 1
-			pos_hint: { "center_x": .5}
-			font_size: "40dp"
-			on_release: 
-				app.root.current = "register"
-				root.manager.transition.direction = "left"
-		
-		Button:
-			text: "Forgot Password"
-			size_hint: .4, 1
-			pos_hint: { "center_x": .5}
-			font_size: "40dp"
-			on_release:
-				app.root.current = "forgotten"
-				root.manager.transition.direction = "left"
-	
-		Button:
-			text: "Exit"
-			size_hint: .2, .6
-			font_size: "40dp"
-			on_press : 
-				quit()
+#Causes music to start at the first instance possible using the clock 
+def bard(dt):
+    music = SoundLoader.load("MenuMusic.wav")
+    if music:
+        music.play()
+        music.loop = True
 
-			
-<Login>:
-	name: "login"
-	
-	BoxLayout:
-		orientation: "vertical"
-		spacing: '10dp'
+Clock.schedule_once(bard)
 
-		Label:
-			text: "Login"
-			font_size: '100dp'
-			pos_hint: { "y": .5}
+#Menu:
+class Menu(Screen):
+    pass
 
-		TextInput:
-			hint_text: "Username"
-			multiline: False
-			size_hint: .4,.1
-			pos_hint: { "center_x": .5}		
-			on_text_validate:
-				app.root.current = "gameMenu"
-				root.manager.transition.direction = "left"	
-			
-		TextInput:
-			hint_text: "password"
-			multiline: False
-			size_hint: .4,.1
-			pos_hint: { "center_x": .5}
+#Each screen in the Menu 
+class Login(Screen): 
+    pass
 
-		BoxLayout:
-			orientation: "horizontal"
-			size_hint: 1.25,.5
-			Label:
-				text: ''
-		
-		Button:
-			text: "Back"
-			pos_hint: { "left": 0}
-			size_hint: .2,.3
-			font_size: "40dp"
-			on_release: 
-				app.root.current = "menu"
-				root.manager.transition.direction = "right"
-					
-				
-<Register>:
-	name: "register"
-	
-	BoxLayout:
-		orientation: "vertical"
-		spacing: '10dp'
+class Register(Screen):
+    pass
 
-		Label:
-			text: "Register"
-			font_size: '100dp'
-		TextInput:
-			hint_text: "Username"
-			multiline: False
-			size_hint: .4,.15
-			pos_hint: { "center_x": .5}
-		
-		TextInput:
-			hint_text: "DD/MM/YYYY"
-			multiline: False
-			size_hint: .4,.15
-			pos_hint: { "center_x": .5}
+class Forgotten(Screen):
+    pass
 
-		TextInput:
-			hint_text: "Password"
-			multiline: False
-			size_hint: .4,.15
-			pos_hint: { "center_x": .5}
+#Game Menu:
+class GameMenu(Screen):
+    pass
 
-		Label:
-			size_hint: .2,.2
-			text:''
+#Each screen in the Game menu
 
-		Button:
-			text: "Generate Transfer Code"
-			size_hint: .2,.5
-			pos_hint: {"center_x": 0.5 , "centre_y": 0.5}
-				
+class Setting(Screen):
+    pass
 
-		Label:
-			orientation: 'horizontal'
-			size_hint: 1.25,.5
-			text: ''
+class Stats(Screen):
+    pass
 
-		Button:
-			text: "Back"
-			pos_hint: {"left": 0}
-			size_hint:.2,.3
-			font_size: "40dp"
-			on_release:
-				app.root.current = "menu"
-				root.manager.transition.direction = "right"
+class Secret(Screen):
+    pass
 
-<Forgotten>:
+#manages each screeen allows for changing between the menu screens
+class Menu_Manager(ScreenManager): 
+    pass
 
-	name: "forgotten"
-		
-	BoxLayout:
+kv = Builder.load_file('Menu.kv')
 
-		orientation: 'vertical'
-		spacing: '10dp'
+class App(App): #main class for the menu
+    def build(self):
+        return kv
 
-		Label:
-			text:'Forgot Password'
-			font_size: "75dp"
-
-		TextInput:
-			hint_text: "Enter generated number"
-			multiline: False
-			size_hint: .6,.125
-			pos_hint: { "center_x": .5}
-		
-		TextInput:
-			hint_text: "Enter Account Username"
-			multiline: False
-			size_hint: .6,.125		
-			pos_hint: { "center_x": .5}
-		
-		TextInput:
-			hint_text: "Enter New Password"
-			multiline: False
-			size_hint: .6,.125	
-			pos_hint: { "center_x": .5}
-		
-		TextInput:
-			hint_text: "Enter new password again"
-			multiline: False
-			size_hint: .6,.125			
-			pos_hint: { "center_x": .5}
-
-		BoxLayout:
-			orientation: "horizontal"
-			size_hint: 1.25,.5
-			Label:
-				text:	
-		Button:
-			text:'Back'
-			pos_hint: {"x": 0}
-			size_hint: .2,.3
-			font_size: "40dp"
-			on_release:
-				app.root.current = "menu"
-				root.manager.transition: "left" 
-<GameMenu>
-	name: "gameMenu"
-
-	BoxLayout:
-		orientation: "vertical"
-		spacing: '10dp'
-
-		Label:
-			text: "Precaution"
-			font_size: "150dp"
-
-		Button:
-			text: "Play!"
-			size_hint: .6, 1
-			pos_hint: { "center_x": .5}
-			font_size: "40dp"
-		
-		Button:
-			text: "Settings"
-			size_hint: .4, 1
-			pos_hint: {"center_x": .5}
-			font_size: "40dp"
-			on_release:
-				app.root.current = "setting"
-				root.manager.transition.direction = "left"
-		
-		Button:
-			text: "Stats"
-			size_hint: .4, 1
-			pos_hint: { "center_x": .5}
-			font_size: "40dp"
-			on_release:
-				app.root.current = "stats"
-				root.manager.transition.direction = "left"
-
-		Button:
-			text: "Secrets"
-			size_hint: .4, 1
-			pos_hint: { "center_x": .5}
-			font_size: "40dp"
-			on_release:
-				app.root.current = "secret"
-				root.manager.transition.direction = "left"
-
-		Button:
-			text: "Exit"
-			size_hint: .2, .6
-			font_size: "40dp"
-			on_press : 
-				app.root.current = "menu"
-				
-
-<Setting>
-	name: "setting"
-		
-	BoxLayout:
-		orientation: "vertical"
-		spacing: "10dp"
-		
-		Label:
-			text: "Settings"
-			font_size: "100dp"
-
-		Button:
-			text: "Sound"
-			size_hint: .4, 1
-			pos_hint: { "center_x": .5}
-			font_size: "40dp"
-
-		Button:
-			text: "Controls"
-			size_hint: .4, 1
-			pos_hint: { "center_x": .5}
-			font_size: "40dp"
-		
-		Button:
-			text: "Resolution"
-			size_hint: .4, 1
-			pos_hint: { "center_x": .5}
-			font_size: "40dp"
-
-		Button:
-			text: "Back"
-			size_hint: .2, .6
-			font_size: "40dp"
-			on_press : 
-				app.root.current = "gameMenu"
-
-
-<Stats>
-	name: "stats"
-
-	BoxLayout:
-		orientation: "vertical"
-		spacing: "10dp"
-		
-		Label:
-			text: "Stats"
-			font_size: "100dp"
-
-		Button:
-			text: "Back"
-			size_hint: .2, .6
-			font_size: "40dp"
-			on_press : 
-				app.root.current = "gameMenu"
-
-<Secret>
-	name: "secret"
-
-	BoxLayout:
-		orientation: "vertical"
-		spacing: "10dp"
-		
-		Label:
-			text: "Secrets"
-			font_size: "100dp"
-
-		Button:
-			text: "Back"
-			size_hint: .2, .6
-			font_size: "40dp"
-			on_press : 
-				app.root.current = "gameMenu"
-	
-	
+App().run() #run
