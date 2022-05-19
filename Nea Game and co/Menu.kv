@@ -1,0 +1,456 @@
+Menu_Manager:
+#: import NoTransition kivy.uix.screenmanager.NoTransition 
+
+	Menu:
+	Login:
+	Register:
+	Forgotten:
+	GameMenu:
+	Setting:
+	Stats:
+	Secret:
+	
+<Menu>:
+	name: "menu"
+	Image:
+		source: "Backing.zip"
+		pos: self.pos
+		size: self.width, self.height
+		allow_stretch: True
+		keep_ratio: False
+
+	BoxLayout:
+		orientation: "vertical"
+		spacing: "5dp"
+
+		Label:
+			text: "Precaution"
+			font_size: "100dp"
+			font_name: "Pixel font.ttf"
+
+		Button:
+			text: "Login"
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			size_hint: .4, 1
+			pos_hint: { "center_x": .5}
+			font_size: "40dp"
+			font_name: "Pixel font.ttf"
+			on_release: 
+				app.root.current = "login"
+				root.manager.transition = NoTransition()
+		
+		Button:
+			text: "Register"
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			size_hint: .4, 1
+			pos_hint: { "center_x": .5}
+			font_size: "40dp"
+			font_name: "Pixel font.ttf"
+			on_release: 
+				app.root.current = "register"
+				root.manager.transition = NoTransition()
+		
+		Button:
+			text: "Forgot Password"
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			size_hint: .4, 1
+			pos_hint: { "center_x": .5}
+			font_size: "40dp"
+			font_name: "Pixel font.ttf"
+			on_release:
+				app.root.current = "forgotten"
+				root.manager.transition = NoTransition()
+
+		Button:
+			text: "Exit"
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			size_hint: .2, .6
+			font_size: "40dp"
+			font_name: "Pixel font.ttf"
+			on_release: 
+				quit()
+			
+<Login>:
+	name: "login"
+	Image:
+		source: "Backing.zip"
+		pos: self.pos
+		size: self.width, self.height
+		allow_stretch: True
+		keep_ratio: False
+
+	BoxLayout:
+		orientation: "vertical"
+		spacing: '10dp'
+
+		Label:
+			text: "Login"
+			font_size: '100dp'
+			pos_hint: { "y": .5}
+			font_name: "Pixel font.ttf"
+
+		TextInput:
+			hint_text: "Username"
+			multiline: False
+			size_hint: .4,.1
+			pos_hint: { "center_x": .5}	
+			font_name: "Pixel font.ttf"	
+			on_text_validate:
+				app.root.current = "gameMenu"
+			
+		TextInput:
+			hint_text: "password"
+			multiline: False
+			size_hint: .4,.1
+			font_name: "Pixel font.ttf"
+			pos_hint: { "center_x": .5}
+
+		BoxLayout:
+			orientation: "horizontal"
+			size_hint: 1.25,.5
+			Label:
+				text: ''
+		
+		Button:
+			text: "Back"
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			pos_hint: { "left": 0}
+			size_hint: .2,.3
+			font_name: "Pixel font.ttf"
+			font_size: "40dp"
+			on_release: 
+				app.root.current = "menu"
+				root.manager.transition = NoTransition()
+					
+				
+<Register>:
+	name: "register"
+	Image:
+		source: "Backing.zip"
+		pos: self.pos
+		size: self.width, self.height
+		allow_stretch: True
+		keep_ratio: False
+
+	BoxLayout:
+		orientation: "vertical"
+		spacing: '10dp'
+
+		Label:
+			text: "Register"
+			font_size: '100dp'
+			font_name: "Pixel font.ttf"
+		TextInput:
+			id: user_reg
+			hint_text: "Username"
+			multiline: False
+			font_name: "Pixel font.ttf"
+			size_hint: .4,.15
+			pos_hint: { "center_x": .5}
+			on_text_validate:
+				app.submit() #executes the submit command on enter press	
+		
+		TextInput:
+			hint_text: "DD/MM/YYYY"
+			multiline: False
+			size_hint: .4,.15
+			font_name: "Pixel font.ttf"
+			pos_hint: { "center_x": .5}
+
+		TextInput:
+			hint_text: "Password"
+			multiline: False
+			size_hint: .4,.15
+			font_name: "Pixel font.ttf"
+			pos_hint: { "center_x": .5}
+
+		Label:
+			size_hint: .2,.2
+			text:''
+
+		Button:
+			text: "Generate Transfer Code"
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			font_size: "20dp"
+			font_name: "Pixel font.ttf"
+			size_hint: .4,.5
+			pos_hint: {"center_x": 0.5 , "centre_y": 0.5}
+				
+
+		Label:
+			orientation: 'horizontal'
+			size_hint: 1.25,.5
+			text: ''
+
+		Button:
+			text: "Back"
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			pos_hint: {"left": 0}
+			size_hint:.2,.3
+			font_size: "40dp"
+			font_name: "Pixel font.ttf"
+			on_release:
+				app.root.current = "menu"
+				root.manager.transition = NoTransition()
+
+<Forgotten>:
+	name: "forgotten"
+	Image:
+		source: "Backing.zip"
+		pos: self.pos
+		size: self.width, self.height
+		allow_stretch: True
+		keep_ratio: False
+
+	BoxLayout:
+
+		orientation: 'vertical'
+		spacing: '10dp'
+
+		Label:
+			text:'Forgot Password'
+			font_size: "75dp"
+			font_name: "Pixel font.ttf"
+
+		TextInput:
+			hint_text: "Enter generated number"
+			multiline: False
+			size_hint: .6,.125
+			pos_hint: { "center_x": .5}
+			font_name: "Pixel font.ttf"
+		
+		TextInput:
+			hint_text: "Enter Account Username"
+			multiline: False
+			size_hint: .6,.125		
+			pos_hint: { "center_x": .5}
+			font_name: "Pixel font.ttf"
+		
+		TextInput:
+			hint_text: "Enter New Password"
+			multiline: False
+			size_hint: .6,.125	
+			pos_hint: { "center_x": .5}
+			font_name: "Pixel font.ttf"
+		
+		TextInput:
+			hint_text: "Enter new password again"
+			multiline: False
+			size_hint: .6,.125			
+			pos_hint: { "center_x": .5}
+			font_name: "Pixel font.ttf"
+
+		BoxLayout:
+			orientation: "horizontal"
+			size_hint: 1.25,.5
+			Label:
+				text:	
+		Button:
+			text:'Back'
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			pos_hint: {"x": 0}
+			size_hint: .2,.3
+			font_size: "40dp"
+			font_name: "Pixel font.ttf"
+			on_release:
+				app.root.current = "menu"
+				root.manager.transition = NoTransition() 
+<GameMenu>
+	name: "gameMenu"
+	Image:
+		source: "Backing.zip"
+		pos: self.pos
+		size: self.width, self.height
+		allow_stretch: True
+		keep_ratio: False
+
+	BoxLayout:
+		orientation: "vertical"
+		spacing: '10dp'
+
+		Label:
+			text: "Precaution"
+			font_size: "150dp"
+			font_name: "Pixel font.ttf"
+
+		Button:
+			text: "Play!"
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			size_hint: .6, 1
+			font_name: "Pixel font.ttf"
+			pos_hint: { "center_x": .5}
+			font_size: "40dp"
+			on_press:
+				app.zelda()
+				quit()
+		
+		Button:
+			text: "Settings"
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			size_hint: .4, 1
+			font_name: "Pixel font.ttf"
+			pos_hint: {"center_x": .5}
+			font_size: "40dp"
+			on_release:
+				app.root.current = "setting"
+				root.manager.transition = NoTransition()
+		
+		Button:
+			text: "Stats"
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			size_hint: .4, 1
+			pos_hint: { "center_x": .5}
+			font_size: "40dp"
+			font_name: "Pixel font.ttf"
+			on_release:
+				app.root.current = "stats"
+				root.manager.transition = NoTransition()
+
+		Button:
+			text: "Secrets"
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			size_hint: .4, 1
+			pos_hint: { "center_x": .5}
+			font_size: "40dp"
+			font_name: "Pixel font.ttf"
+			on_release:
+				app.root.current = "secret"
+				root.manager.transition = NoTransition()
+
+		Button:
+			text: "Exit"
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			font_name: "Pixel font.ttf"
+			size_hint: .2, .6
+			font_size: "40dp"
+			on_press : 
+				app.root.current = "menu"
+				
+
+<Setting>
+	name: "setting"
+	Image:
+		source: "Backing.zip"
+		pos: self.pos
+		size: self.width, self.height
+		allow_stretch: True
+		keep_ratio: False
+
+	BoxLayout:
+		orientation: "vertical"
+		spacing: "10dp"
+		
+		Label:
+			text: "Settings"
+			font_size: "100dp"
+			font_name: "Pixel font.ttf"
+
+		Button:
+			text: "Sound"
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			size_hint: .4, 1
+			pos_hint: { "center_x": .5}
+			font_name: "Pixel font.ttf"
+			font_size: "40dp"
+
+		Button:
+			text: "Controls"
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			size_hint: .4, 1
+			pos_hint: { "center_x": .5}
+			font_name: "Pixel font.ttf"
+			font_size: "40dp"
+		
+		Button:
+			text: "Resolution"
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			size_hint: .4, 1
+			pos_hint: { "center_x": .5}
+			font_name: "Pixel font.ttf"
+			font_size: "40dp"
+
+		Button:
+			text: "Back"
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			font_name: "Pixel font.ttf"
+			size_hint: .2, .6
+			font_size: "40dp"
+			on_press : 
+				app.root.current = "gameMenu"
+				root.manager.transition = NoTransition()
+
+
+<Stats>
+	name: "stats"
+	Image:
+		source: "Backing.zip"
+		pos: self.pos
+		size: self.width, self.height
+		allow_stretch: True
+		keep_ratio: False
+
+	BoxLayout:
+		orientation: "vertical"
+		spacing: "10dp"
+		
+		Label:
+			text: "Stats"
+			font_size: "100dp"
+			font_name: "Pixel font.ttf"
+
+		Button:
+			text: "Back"
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			size_hint: .2, .6
+			font_name: "Pixel font.ttf"
+			font_size: "40dp"
+			on_press : 
+				app.root.current = "gameMenu"
+				root.manager.transition = NoTransition()
+
+<Secret>
+	name: "secret"
+	Image:
+		source: "Backing.zip"
+		pos: self.pos
+		size: self.width, self.height
+		allow_stretch: True
+		keep_ratio: False
+
+	BoxLayout:
+		orientation: "vertical"
+		spacing: "10dp"
+		
+		Label:
+			text: "Secrets"
+			font_size: "100dp"
+			font_name: "Pixel font.ttf"
+
+		Button:
+			text: "Back"
+			background_normal: "Button normal.png"
+			background_down: "Button down.png"
+			size_hint: .2, .6
+			font_size: "40dp"
+			font_name: "Pixel font.ttf"
+			on_press : 
+				app.root.current = "gameMenu"
+				root.manager.transition = NoTransition()	
