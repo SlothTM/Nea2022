@@ -1,5 +1,5 @@
 Menu_Manager:
-#: import NoTransition kivy.uix.screenmanager.NoTransition 
+#: import NoTransition kivy.uix.screenmanager.NoTransition
 
 	Menu:
 	Login:
@@ -37,8 +37,8 @@ Menu_Manager:
 			font_size: "40dp"
 			font_name: "Pixel font.ttf"
 			on_release: 
-				app.root.current = "login"
-				root.manager.transition = NoTransition()
+				app.log()
+				app.root.current = "gameMenu"
 		
 		Button:
 			text: "Register"
@@ -49,8 +49,7 @@ Menu_Manager:
 			font_size: "40dp"
 			font_name: "Pixel font.ttf"
 			on_release: 
-				app.root.current = "register"
-				root.manager.transition = NoTransition()
+				app.reg()
 		
 		Button:
 			text: "Forgot Password"
@@ -61,8 +60,8 @@ Menu_Manager:
 			font_size: "40dp"
 			font_name: "Pixel font.ttf"
 			on_release:
-				app.root.current = "forgotten"
-				root.manager.transition = NoTransition()
+				app.fog()
+
 
 		Button:
 			text: "Exit"
@@ -130,6 +129,10 @@ Menu_Manager:
 				
 <Register>:
 	name: "register"
+
+	use: user_reg
+	gather: gather
+
 	Image:
 		source: "Backing.zip"
 		pos: self.pos
@@ -145,6 +148,7 @@ Menu_Manager:
 			text: "Register"
 			font_size: '100dp'
 			font_name: "Pixel font.ttf"
+
 		TextInput:
 			id: user_reg
 			hint_text: "Username"
@@ -152,18 +156,18 @@ Menu_Manager:
 			font_name: "Pixel font.ttf"
 			size_hint: .4,.15
 			pos_hint: { "center_x": .5}
-			on_text_validate:
-				app.submit() #executes the submit command on enter press	
-		
+
 		TextInput:
-			hint_text: "DD/MM/YYYY"
+			id: pass_reg
+			hint_text: "Password"
 			multiline: False
 			size_hint: .4,.15
 			font_name: "Pixel font.ttf"
-			pos_hint: { "center_x": .5}
+			pos_hint: { "center_x": .5}	
 
 		TextInput:
-			hint_text: "Password"
+			id: b_day
+			hint_text: "DD/MM/YYYY"
 			multiline: False
 			size_hint: .4,.15
 			font_name: "Pixel font.ttf"
@@ -174,6 +178,7 @@ Menu_Manager:
 			text:''
 
 		Button:
+			id: gather
 			text: "Generate Transfer Code"
 			background_normal: "Button normal.png"
 			background_down: "Button down.png"
@@ -181,7 +186,8 @@ Menu_Manager:
 			font_name: "Pixel font.ttf"
 			size_hint: .4,.5
 			pos_hint: {"center_x": 0.5 , "centre_y": 0.5}
-				
+			on_release:
+				app.submit()
 
 		Label:
 			orientation: 'horizontal'
@@ -290,8 +296,8 @@ Menu_Manager:
 			pos_hint: { "center_x": .5}
 			font_size: "40dp"
 			on_press:
-				app.zelda()
-				quit()
+				app.close_application()
+				
 		
 		Button:
 			text: "Settings"
