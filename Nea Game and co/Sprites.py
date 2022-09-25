@@ -33,13 +33,13 @@ class Player(p.sprite.Sprite):
         self.image =  Game.player_sprite
         self.rect = self.image.get_rect()
         self.vel = vec(0,0)
-        self.pos = vec(x,y) *TILESIZE
+        self.pos = vec(x,y)
         self.facing_left = False
         self.flipped_sprite = p.transform.flip(self.image, True, False)
         self.previous = 0
         self.health = P_HEALTH
         self.last_hit = 0
-        
+        self.rect.center = self.pos
         
 
     def movement(self):
@@ -88,6 +88,7 @@ class Player(p.sprite.Sprite):
             self.image = self.flipped_sprite
         else:
             self.image = self.Game.player_sprite
+        
                 
 class Enemy(p.sprite.Sprite):
     def __init__(self, Game, x, y):
@@ -96,7 +97,7 @@ class Enemy(p.sprite.Sprite):
         self.Game = Game
         self.image = Game.enemy1_sprite
         self.rect = self.image.get_rect()
-        self.pos = vec(x,y) * TILESIZE
+        self.pos = vec(x,y)
         self.vel = vec(0,0)
         self.acc = vec(0,0)
         self.rect.center = self.pos
@@ -104,21 +105,22 @@ class Enemy(p.sprite.Sprite):
         self.player_on_left = True 
         self.health = E_HEALTH
                
-
     def update(self):
         track_player = (self.Game.player.pos - self.pos).angle_to(vec(1,0))%360
         hcooldown = p.time.get_ticks()
-        if track_player <= 90:
-            self.image = self.Game.enemy1_sprite
-        elif track_player >= 270:
-            self.image = self.Game.enemy1_sprite
-        else:
-            self.image = self.flipped_sprite
-        if hcooldown - self.Game.player.last_hit > E_FRAME:
-            self.acc = vec(E_SPEED, 0).rotate(-track_player)
-            self.acc += self.vel* -1
-            self.vel += self.acc * self.Game.dt
-            self.pos += self.vel * self.Game.dt + 0.5 * self.acc * self.Game.dt ** 2
+        player_dist = self.Game.player.pos - self.pos
+        if player_dist.length_squared() < DETECT_RADIUS**2:
+            if track_player <= 90:
+                self.image = self.Game.enemy1_sprite
+            elif track_player >= 270:
+                self.image = self.Game.enemy1_sprite
+            else:
+                self.image = self.flipped_sprite
+            if hcooldown - self.Game.player.last_hit > E_FRAME:
+                self.acc = vec(E_SPEED, 0).rotate(-track_player)
+                self.acc += self.vel* -1
+                self.vel += self.acc * self.Game.dt
+                self.pos += self.vel * self.Game.dt + 0.5 * self.acc * self.Game.dt ** 2
         self.rect.x = (self.pos.x)
         hit_wall(self, self.Game.tiles,'x')
         self.rect.y = (self.pos.y)
@@ -133,7 +135,7 @@ class Enemy2(p.sprite.Sprite):
         self.Game = Game
         self.image = Game.enemy2_sprite
         self.rect = self.image.get_rect()
-        self.pos = vec(x,y) * TILESIZE
+        self.pos = vec(x,y) 
         self.vel = vec(0,0)
         self.acc = vec(0,0)
         self.rect.center = self.pos
@@ -141,32 +143,35 @@ class Enemy2(p.sprite.Sprite):
         self.player_on_left = True 
         self.health = E2_HEALTH      
         self.previous = 0
+        self.rect.center = self.pos
         
 
     def update(self):
         track_player = (self.Game.player.pos - self.pos).angle_to(vec(1,0))%360
         now = p.time.get_ticks()
         hcooldown = p.time.get_ticks()
-        if track_player <= 90:
-            self.image = self.Game.enemy2_sprite
-            direction = vec(1,0).rotate(-track_player)
-            bpos = self.pos + E2B_RIGHT
-        elif track_player >= 270:
-            self.image = self.Game.enemy2_sprite
-            direction = vec(1,0).rotate(-track_player)
-            bpos = self.pos + E2B_RIGHT
-        else:
-            self.image = self.flipped_sprite
-            direction = vec(1,0).rotate(-track_player)
-            bpos = self.pos + E2B_LEFT
-        if hcooldown - self.Game.player.last_hit > E_FRAME:
-            self.acc = vec(E2_SPEED, 0).rotate(-track_player)
-            self.acc += self.vel* -1
-            self.vel += self.acc * self.Game.dt
-            self.pos += self.vel * self.Game.dt + 0.5 * self.acc * self.Game.dt ** 2
-            if now - self.previous > E2_RATE:
-                self.previous = now 
-                EBullet(self.Game, bpos, direction)
+        player_dist = self.Game.player.pos - self.pos
+        if player_dist.length_squared() < DETECT_RADIUS**2:
+            if track_player <= 90:
+                self.image = self.Game.enemy2_sprite
+                direction = vec(1,0).rotate(-track_player)
+                bpos = self.pos + E2B_RIGHT
+            elif track_player >= 270:
+                self.image = self.Game.enemy2_sprite
+                direction = vec(1,0).rotate(-track_player)
+                bpos = self.pos + E2B_RIGHT
+            else:
+                self.image = self.flipped_sprite
+                direction = vec(1,0).rotate(-track_player)
+                bpos = self.pos + E2B_LEFT
+            if hcooldown - self.Game.player.last_hit > E_FRAME:
+                self.acc = vec(E2_SPEED, 0).rotate(-track_player)
+                self.acc += self.vel* -1
+                self.vel += self.acc * self.Game.dt
+                self.pos += self.vel * self.Game.dt + 0.5 * self.acc * self.Game.dt ** 2
+                if now - self.previous > E2_RATE:
+                    self.previous = now 
+                    EBullet(self.Game, bpos, direction)
         self.rect.x = (self.pos.x)
         hit_wall(self, self.Game.tiles,'x')
         self.rect.y = (self.pos.y)
@@ -189,6 +194,17 @@ class Tile(p.sprite.Sprite):
         self.y = y
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
+
+class wall_object(p.sprite.Sprite):
+    def __init__(self, Game, x, y, w, h):
+        self.groups = Game.tiles
+        p.sprite.Sprite.__init__(self,self.groups)
+        self.Game = Game
+        self.rect = p.Rect(x,y,w,h)
+        self.x = x
+        self.y = y
+        self.rect.x = x 
+        self.rect.y = y 
 
 class Bullet(p.sprite.Sprite):
     def __init__(self, Game, pos , direction):
